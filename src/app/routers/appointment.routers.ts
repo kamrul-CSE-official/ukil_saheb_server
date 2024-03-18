@@ -9,10 +9,15 @@ const router = express.Router();
 router.use(protectRoute);
 
 // Appointment routes
-router.post("/", asyncHandler(appointmentController.takeAnAppointment));
-router.get("/", asyncHandler(appointmentController.getAppointments));
-router.get("/:id", asyncHandler(appointmentController.getAppointmentById));
-router.put("/:id", asyncHandler(appointmentController.updateAppointment));
-router.delete("/:id", asyncHandler(appointmentController.deleteAppointment));
+router
+  .route("/")
+  .post(asyncHandler(appointmentController.takeAnAppointment))
+  .get(asyncHandler(appointmentController.getAppointments));
+
+router
+  .route("/:id")
+  .get(asyncHandler(appointmentController.getAppointmentById))
+  .put(asyncHandler(appointmentController.updateAppointment))
+  .delete(asyncHandler(appointmentController.deleteAppointment));
 
 export default router;
