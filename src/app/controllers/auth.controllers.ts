@@ -45,7 +45,7 @@ const registerGeneralController = async (req: Request, res: Response) => {
 const registerLawyerController = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
-
+console.log("Hit...");
     // Check if user already exists in either User or Lawyer collection
     const isAlreadyExist =
       (await User.findOne({ email: userData.email })) ||
