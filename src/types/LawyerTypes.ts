@@ -9,8 +9,6 @@ export interface ILawyer {
   occupation: string;
   experience: number;
   about: string;
-  reviews: [];
-  ratings: number;
   role: string;
-  clients: [];
+  avgRating?: number;
 }

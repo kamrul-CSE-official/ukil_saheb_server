@@ -20,22 +20,6 @@ export interface ILawyerModel extends Model<ILawyerDocument> {
   ): Promise<boolean>;
 }
 
-// Define review schema
-const reviewSchema = new Schema({
-  serviceHolderId: { type: String, required: true },
-  serviceHolderName: { type: String, required: true },
-  serviceHolderImg: { type: String, required: true },
-  comment: { type: String, required: true },
-  time: { type: String, required: true },
-  rating: { type: Number, required: true },
-});
-// Define clients schema
-const clientsSchema = new Schema({
-  clientId: { type: String, required: true },
-  clientName: { type: String, required: true },
-  clientImg: { type: String, required: true },
-  appointment: { type: String, required: true },
-});
 
 // Define Lawyer Schema
 const lawyerSchema = new Schema<ILawyerDocument>(
@@ -50,10 +34,8 @@ const lawyerSchema = new Schema<ILawyerDocument>(
     occupation: { type: String, required: true },
     experience: { type: Number, required: true },
     about: { type: String, required: true },
-    clients: [clientsSchema],
-    reviews: [reviewSchema],
-    ratings: { type: Number, default: 0 },
     role: { type: String, default: "Lawyer" },
+    avgRating: {type: Number, default: 0}
   },
   { timestamps: true }
 );
@@ -65,15 +47,6 @@ lawyerSchema.pre<ILawyerDocument>("save", async function (next) {
   next();
 });
 
-// Middleware to calculate total ratings before saving
-lawyerSchema.pre<ILawyerDocument>("save", function (next) {
-  const totalRatings = this.reviews.reduce(
-    (acc: number, review: any) => acc + review.rating,
-    0
-  );
-  this.ratings = totalRatings;
-  next();
-});
 
 // Static method to check if user exists
 lawyerSchema.statics.isUserExist = function (email: string) {

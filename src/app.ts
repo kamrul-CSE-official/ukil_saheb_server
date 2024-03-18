@@ -33,6 +33,7 @@ app.get("/api/v1", (req, res) => {
 });
 
 app.use("/api/v1/auth", limiter, authRouters);
+app.use("/api/v1/auth", limiter, authRouters);
 app.use("/api/v1/appointments", appiontmentRouters);
 
 // error hendler
