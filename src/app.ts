@@ -8,6 +8,7 @@ import authRouters from "./app/routers/auth.routers";
 import appointmentRouters from "./app/routers/appointment.routers";
 import lawyerRouters from "./app/routers/lawyer.routers";
 import connectWithUsRouters from "./app/routers/ConnectWithUs.routers";
+import usersRouters from "./app/routers/user.routers";
 
 const app = express();
 
@@ -36,12 +37,14 @@ app.get("/api/v1", (req, res) => {
 
 // Routers setup
 app.use("/api/v1/auth", limiter, authRouters);
+app.use("/api/v1/users", usersRouters);
 app.use("/api/v1/lawyers", lawyerRouters);
 app.use("/api/v1/connect", connectWithUsRouters);
 app.use("/api/v1/appointments", appointmentRouters);
 
 // Error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
+  console.log("Requested URL:", req.url);
   next("Requested URL was not found!");
 });
 

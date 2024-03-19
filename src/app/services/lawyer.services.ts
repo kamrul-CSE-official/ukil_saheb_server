@@ -1,10 +1,10 @@
 import { Types } from "mongoose";
 import Appointment from "../models/Appointment.model";
-import ConnectWithUs from "../models/Lawyer.model";
+import Lawyer from "../models/Lawyer.model";
 
 const getAllLawyers = async (): Promise<any> => {
   try {
-    const lawyers = await ConnectWithUs.find();
+    const lawyers = await Lawyer.find();
     return lawyers;
   } catch (error) {
     throw new Error("Failed to retrieve lawyers");
@@ -41,9 +41,9 @@ const getBestLawyers = async (page: number, limit: number): Promise<any> => {
     const bestLawyerIds = bestLawyersIdsWithRatings.map((result) => result._id);
 
     // Fetching lawyer documents corresponding to the IDs
-    const bestLawyers = await Promise.all(
+    let bestLawyers = await Promise.all(
       bestLawyerIds.map(async (id) => {
-        const lawyer = await ConnectWithUs.findById(id);
+        const lawyer = await Lawyer.findById(id);
         if (lawyer) {
           // Attach the average rating to the lawyer object
           const avgRating = bestLawyersIdsWithRatings.find((item) =>
@@ -56,6 +56,15 @@ const getBestLawyers = async (page: number, limit: number): Promise<any> => {
       })
     );
 
+    // Check if all lawyers are null or the array is empty
+    const allNull = bestLawyers.every((lawyer) => lawyer === null);
+    if (allNull || !bestLawyers.length) {
+      // If all lawyers are null or the array is empty, fetch data directly from Lawyer model
+      bestLawyers = await Lawyer.find()
+        .limit(limit)
+        .skip((page - 1) * limit);
+    }
+
     return bestLawyers.filter((lawyer) => lawyer !== null); // Filtering out null values
   } catch (error) {
     console.error("Error finding best lawyers:", error);
@@ -65,7 +74,7 @@ const getBestLawyers = async (page: number, limit: number): Promise<any> => {
 
 const getLawyerById = async (id: string): Promise<any | null> => {
   try {
-    const lawyer = await ConnectWithUs.findById(id);
+    const lawyer = await Lawyer.findById(id);
     return lawyer;
   } catch (error) {
     throw new Error("Failed to retrieve lawyer");

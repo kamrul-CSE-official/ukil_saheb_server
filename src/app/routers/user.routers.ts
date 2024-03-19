@@ -1,18 +1,21 @@
 import express from "express";
 import asyncHandler from "../middlewares/asyncHandler";
-import lawyerControllers from "../controllers/lawyer.controllers";
+import generalUsersControllers from "../controllers/user.controllers";
 
 const router = express.Router();
 
 // Define routes and corresponding controller functions
 const routes = [
-  { method: "GET", path: "/", controller: lawyerControllers.getAllLawyer },
   {
     method: "GET",
-    path: "/best",
-    controller: lawyerControllers.getBestLawyersController,
+    path: "/",
+    controller: generalUsersControllers.getAllGeneralUsers,
   },
-  { method: "GET", path: "/:id", controller: lawyerControllers.getLawyerById },
+  {
+    method: "GET",
+    path: "/:id",
+    controller: generalUsersControllers.getGeneralUserById,
+  },
 ];
 
 // Map routes to controller functions

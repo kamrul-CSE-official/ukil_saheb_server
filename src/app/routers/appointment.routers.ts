@@ -1,7 +1,7 @@
 import express from "express";
-import appointmentController from "../controllers/appointment.controllers";
-import { protectRoute } from "../middlewares/protectRoute";
 import asyncHandler from "../middlewares/asyncHandler";
+import { protectRoute } from "../middlewares/protectRoute";
+import appointmentController from "../controllers/appointment.controllers";
 
 const router = express.Router();
 
@@ -11,8 +11,8 @@ router.use(protectRoute);
 // Appointment routes
 router
   .route("/")
-  .post(asyncHandler(appointmentController.takeAnAppointment))
-  .get(asyncHandler(appointmentController.getAppointments));
+  .get(asyncHandler(appointmentController.getAppointments))
+  .post(asyncHandler(appointmentController.takeAnAppointment));
 
 router
   .route("/:id")

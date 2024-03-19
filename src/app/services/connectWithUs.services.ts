@@ -1,9 +1,10 @@
-import ConnectWithUs from "../models/Lawyer.model";
+import ConnectWithUs from "../models/connectWith.model";
+import { IConnect } from "../models/connectWith.model";
 
 const getAllContacts = async (): Promise<any> => {
   try {
-    const lawyers = await ConnectWithUs.find();
-    return lawyers;
+    const connects = await ConnectWithUs.find();
+    return connects;
   } catch (error) {
     throw new Error("Failed to retrieve connects");
   }
@@ -11,15 +12,52 @@ const getAllContacts = async (): Promise<any> => {
 
 const getConnectById = async (id: string): Promise<any | null> => {
   try {
-    const lawyer = await ConnectWithUs.findById(id);
-    return lawyer;
+    const connects = await ConnectWithUs.findById(id);
+    return connects;
   } catch (error) {
     throw new Error("Failed to retrieve connect");
+  }
+};
+
+const createConnectWithUs = async (data: IConnect): Promise<any | null> => {
+  try {
+    const query = new ConnectWithUs(data);
+    const result = await query.save();
+    return result;
+  } catch (error) {
+    throw new Error("Failed to create connect");
+  }
+};
+
+const updateConnectWithUs = async (
+  id: string,
+  data: IConnect
+): Promise<any | null> => {
+  try {
+    const result = await ConnectWithUs.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    return result;
+  } catch (error) {
+    throw new Error("Failed to update connect");
+  }
+};
+
+const deleteConnectWithUs = async (id: string): Promise<any | null> => {
+  try {
+    const result = await ConnectWithUs.findByIdAndDelete(id);
+    return result;
+  } catch (error) {
+    throw new Error("Failed to delete connect");
   }
 };
 
 const ConnectWithUsServices = {
   getAllContacts,
   getConnectById,
+  createConnectWithUs,
+  updateConnectWithUs,
+  deleteConnectWithUs,
 };
+
 export default ConnectWithUsServices;

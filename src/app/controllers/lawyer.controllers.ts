@@ -52,7 +52,6 @@ const getBestLawyersController = async (
 ): Promise<void> => {
   const page = parseInt(req.query.page as string) || 1;
   const limit = parseInt(req.query.limit as string) || 10;
-
   try {
     const bestLawyers = await lawyerServices.getBestLawyers(page, limit);
 

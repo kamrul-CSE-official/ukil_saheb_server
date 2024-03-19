@@ -1,53 +1,88 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import ConnectWithUsServices from "../services/connectWithUs.services";
 
-const getAllContacts = async (req: Request, res: Response): Promise<void> => {
+const getAllContacts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const connects = await ConnectWithUsServices.getAllContacts();
-
-    res.status(200).json({
-      status: "success",
-      message: "Data retrieved successfully",
-      data: connects,
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      status: "error",
-      message: "Failed to retrieve connects",
-      error: error.message,
-    });
+    const contacts = await ConnectWithUsServices.getAllContacts();
+    res.status(200).json(contacts);
+  } catch (error) {
+    next(error);
   }
 };
 
-const getContactById = async (req: Request, res: Response): Promise<void> => {
+const getContactById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { id } = req.params;
-    const connect = await ConnectWithUsServices.getConnectById(id);
-
-    if (!connect) {
-      res.status(404).json({
-        status: "fail",
-        message: "Connect not found",
-      });
-      return;
+    const contact = await ConnectWithUsServices.getConnectById(id);
+    if (!contact) {
+      return res.status(404).json({ message: "Contact not found" });
     }
+    res.status(200).json(contact);
+  } catch (error) {
+    next(error);
+  }
+};
 
-    res.status(200).json({
-      status: "success",
-      message: "Connect with us retrieved successfully",
-      data: connect,
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      status: "error",
-      message: "Failed to retrieve connect",
-      error: error.message,
-    });
+const createContact = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const data = req.body;
+    const newContact = await ConnectWithUsServices.createConnectWithUs(data);
+    res.status(201).json(newContact);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateContactById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const updatedContact = await ConnectWithUsServices.updateConnectWithUs(
+      id,
+      data
+    );
+    res.status(200).json(updatedContact);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteContactById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const deletedContact = await ConnectWithUsServices.deleteConnectWithUs(id);
+    res.status(200).json(deletedContact);
+  } catch (error) {
+    next(error);
   }
 };
 
 const connectWithUsControllers = {
   getAllContacts,
   getContactById,
+  createContact,
+  updateContactById,
+  deleteContactById,
 };
+
 export default connectWithUsControllers;
