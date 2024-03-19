@@ -3,7 +3,7 @@ import User from "../models/user.model";
 import { createAccessToken, createRefreshToken } from "../../utils/jwtToken";
 import { authServices } from "../services/auth.services";
 import { logger } from "../../shared/logger";
-import Lawyer from "../models/Lawyer.model";
+import ConnectWithUs from "../models/Lawyer.model";
 import Admin from "../models/Admin.model";
 
 const registerGeneralController = async (req: Request, res: Response) => {
@@ -13,7 +13,7 @@ const registerGeneralController = async (req: Request, res: Response) => {
     // Check if user already exists in either User or Lawyer collection
     const isAlreadyExist =
       (await User.findOne({ email: userData.email })) ||
-      (await Lawyer.findOne({ email: userData.email }));
+      (await ConnectWithUs.findOne({ email: userData.email }));
 
     if (isAlreadyExist) {
       return res
@@ -45,11 +45,10 @@ const registerGeneralController = async (req: Request, res: Response) => {
 const registerLawyerController = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
-console.log("Hit...");
     // Check if user already exists in either User or Lawyer collection
     const isAlreadyExist =
       (await User.findOne({ email: userData.email })) ||
-      (await Lawyer.findOne({ email: userData.email }));
+      (await ConnectWithUs.findOne({ email: userData.email }));
 
     if (isAlreadyExist) {
       return res
@@ -84,7 +83,8 @@ const loginController = async (req: Request, res: Response) => {
 
     // Check if user exists in either User or Lawyer collection
     const existUser =
-      (await User.isUserExist(email)) || (await Lawyer.isUserExist(email));
+      (await User.isUserExist(email)) ||
+      (await ConnectWithUs.isUserExist(email));
 
     if (!existUser) {
       return res

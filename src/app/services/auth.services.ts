@@ -1,11 +1,11 @@
-import Lawyer from "../models/Lawyer.model";
+import ConnectWithUs from "../models/Lawyer.model";
 import User, { IUserDocument } from "../models/user.model";
 
 const registerGeneralUser = async (userData: IUserDocument) => {
   return await User.create(userData);
 };
 const registerLawyerUser = async (userData: IUserDocument) => {
-  return await Lawyer.create(userData);
+  return await ConnectWithUs.create(userData);
 };
 
 const login = async (
@@ -16,7 +16,7 @@ const login = async (
     inputPassword,
     existUserPassword
   );
-  const isLawyerPasswordMatched = await Lawyer.isPasswordMatched(
+  const isLawyerPasswordMatched = await ConnectWithUs.isPasswordMatched(
     inputPassword,
     existUserPassword
   );

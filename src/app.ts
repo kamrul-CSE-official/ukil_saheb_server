@@ -5,7 +5,9 @@ import cookieParser from "cookie-parser";
 import { rateLimit } from "express-rate-limit";
 
 import authRouters from "./app/routers/auth.routers";
-import appiontmentRouters from "./app/routers/appointment.routers";
+import appointmentRouters from "./app/routers/appointment.routers";
+import lawyerRouters from "./app/routers/lawyer.routers";
+import connectWithUsRouters from "./app/routers/ConnectWithUs.routers";
 
 const app = express();
 
@@ -14,7 +16,7 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
   message:
-    "Sorry, you have exceeded the request limit. Please try again later after some times.",
+    "Sorry, you have exceeded the request limit. Please try again later after some time.",
 });
 
 // Middleware setup
@@ -32,18 +34,22 @@ app.get("/api/v1", (req, res) => {
   res.send("Ukil Saheb ⚖️");
 });
 
+// Routers setup
 app.use("/api/v1/auth", limiter, authRouters);
-// app.use("/api/v1/auth", limiter, authRouters);
-app.use("/api/v1/appointments", appiontmentRouters);
+app.use("/api/v1/lawyers", lawyerRouters);
+app.use("/api/v1/connect", connectWithUsRouters);
+app.use("/api/v1/appointments", appointmentRouters);
 
-// error hendler
+// Error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
   next("Requested URL was not found!");
 });
 
-app.use((err: any, req: Request, res: Response) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (err.message) {
     res.status(500).json({ status: "fail", message: err.message });
+  } else {
+    next(err);
   }
 });
 

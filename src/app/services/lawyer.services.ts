@@ -1,10 +1,10 @@
 import { Types } from "mongoose";
 import Appointment from "../models/Appointment.model";
-import Lawyer from "../models/Lawyer.model";
+import ConnectWithUs from "../models/Lawyer.model";
 
 const getAllLawyers = async (): Promise<any> => {
   try {
-    const lawyers = await Lawyer.find();
+    const lawyers = await ConnectWithUs.find();
     return lawyers;
   } catch (error) {
     throw new Error("Failed to retrieve lawyers");
@@ -43,7 +43,7 @@ const getBestLawyers = async (page: number, limit: number): Promise<any> => {
     // Fetching lawyer documents corresponding to the IDs
     const bestLawyers = await Promise.all(
       bestLawyerIds.map(async (id) => {
-        const lawyer = await Lawyer.findById(id);
+        const lawyer = await ConnectWithUs.findById(id);
         if (lawyer) {
           // Attach the average rating to the lawyer object
           const avgRating = bestLawyersIdsWithRatings.find((item) =>
@@ -65,7 +65,7 @@ const getBestLawyers = async (page: number, limit: number): Promise<any> => {
 
 const getLawyerById = async (id: string): Promise<any | null> => {
   try {
-    const lawyer = await Lawyer.findById(id);
+    const lawyer = await ConnectWithUs.findById(id);
     return lawyer;
   } catch (error) {
     throw new Error("Failed to retrieve lawyer");
