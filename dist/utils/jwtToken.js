@@ -47,13 +47,21 @@ const verifyAccessToken = (req, res, next) => {
     }
     jsonwebtoken_1.default.verify(accessToken, envConfig_1.default.accessTokenSecret, (err, decoded) => {
         if (err) {
+            console.log("Error aaa", err.name);
             if (err.name === "TokenExpiredError") {
-                // If token is expired, generate a new access token and attach it to the response
-                const newAccessToken = createAccessToken(decoded);
+                const expiredDecoded = jsonwebtoken_1.default.decode(accessToken);
+                if (!expiredDecoded) {
+                    return res.status(401).json({
+                        message: "Invalid access token",
+                        status: "fail",
+                    });
+                }
+                const { name, img, _id } = expiredDecoded;
+                const newAccessToken = createAccessToken({ name, img, _id });
                 return res.status(401).json({
                     message: "Access token expired",
                     status: "fail",
-                    accessToken: newAccessToken,
+                    accessToken: `Bearer ${newAccessToken}`,
                 });
             }
             else {
@@ -62,8 +70,10 @@ const verifyAccessToken = (req, res, next) => {
                     .json({ message: "Forbidden access", status: "fail" });
             }
         }
-        req.accessTokenData = decoded;
-        next();
+        else {
+            req.accessTokenData = decoded;
+            next();
+        }
     });
 };
 exports.verifyAccessToken = verifyAccessToken;
