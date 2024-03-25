@@ -22,7 +22,7 @@ const routes = [
     controller: authControllers.loginController,
   },
   {
-    method: "POST",
+    method: "GET",
     path: "/logout",
     controller: authControllers.logoutController,
   },
@@ -34,6 +34,8 @@ routes.forEach(({ method, path, controller }) => {
     case "POST":
       router.post(path, asyncHandler(controller));
       break;
+    case "GET":
+      router.get(path, asyncHandler(controller));
     default:
       console.error(`Unsupported HTTP method: ${method}`);
   }

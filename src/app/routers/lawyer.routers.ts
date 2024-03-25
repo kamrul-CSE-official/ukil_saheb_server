@@ -12,7 +12,7 @@ const routes = [
     path: "/best",
     controller: lawyerControllers.getBestLawyersController,
   },
-  { method: "GET", path: "/:id", controller: lawyerControllers.getLawyerById },
+  { method: "GET", path: "/:_id", controller: lawyerControllers.getLawyerById },
 ];
 
 // Map routes to controller functions

@@ -2,9 +2,28 @@ import { Types } from "mongoose";
 import Appointment from "../models/Appointment.model";
 import Lawyer from "../models/Lawyer.model";
 
-const getAllLawyers = async (): Promise<any> => {
+const getAllLawyers = async (
+  page: number,
+  limit: number,
+  gender: string,
+  occupation: string
+): Promise<any> => {
   try {
-    const lawyers = await Lawyer.find();
+    const skip = (page - 1) * limit;
+
+    const filter: { gender?: string; occupation?: string } = {};
+    if (gender !== "All") {
+      filter.gender = gender;
+    }
+    if (occupation !== "All") {
+      filter.occupation = occupation;
+    }
+
+    const lawyers = await Lawyer.find(filter)
+      .select("-password")
+      .skip(skip)
+      .limit(limit);
+
     return lawyers;
   } catch (error) {
     throw new Error("Failed to retrieve lawyers");
@@ -43,7 +62,7 @@ const getBestLawyers = async (page: number, limit: number): Promise<any> => {
     // Fetching lawyer documents corresponding to the IDs
     let bestLawyers = await Promise.all(
       bestLawyerIds.map(async (id) => {
-        const lawyer = await Lawyer.findById(id);
+        const lawyer = await Lawyer.findById(id).select("-password");
         if (lawyer) {
           // Attach the average rating to the lawyer object
           const avgRating = bestLawyersIdsWithRatings.find((item) =>
@@ -74,7 +93,7 @@ const getBestLawyers = async (page: number, limit: number): Promise<any> => {
 
 const getLawyerById = async (id: string): Promise<any | null> => {
   try {
-    const lawyer = await Lawyer.findById(id);
+    const lawyer = await Lawyer.findById(id).select("-password");
     return lawyer;
   } catch (error) {
     throw new Error("Failed to retrieve lawyer");

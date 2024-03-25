@@ -3,7 +3,17 @@ import lawyerServices from "../services/lawyer.services";
 
 const getAllLawyer = async (req: Request, res: Response): Promise<void> => {
   try {
-    const lawyers = await lawyerServices.getAllLawyers();
+    const page: number = parseInt(req.query.page as string);
+    const limit: number = parseInt(req.query.limit as string);
+    const gender = req.query.gender as string;
+    const occupation = req.query.occupation as string;
+
+    const lawyers = await lawyerServices.getAllLawyers(
+      page,
+      limit,
+      gender,
+      occupation
+    );
 
     res.status(200).json({
       status: "success",
@@ -21,8 +31,8 @@ const getAllLawyer = async (req: Request, res: Response): Promise<void> => {
 
 const getLawyerById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
-    const lawyer = await lawyerServices.getLawyerById(id);
+    const { _id } = req.params;
+    const lawyer = await lawyerServices.getLawyerById(_id);
 
     if (!lawyer) {
       res.status(404).json({
