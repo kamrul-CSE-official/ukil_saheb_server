@@ -8,13 +8,13 @@ const router = express.Router();
 const routes = [
   {
     method: "POST",
-    path: "/register",
-    controller: authControllers.registerGeneralController,
+    path: "/register/lawyer",
+    controller: authControllers.registerLawyerController,
   },
   {
     method: "POST",
-    path: "/register/lawyer",
-    controller: authControllers.registerLawyerController,
+    path: "/register/general",
+    controller: authControllers.registerGeneralController,
   },
   {
     method: "POST",

@@ -12,6 +12,11 @@ const routes = [
     path: "/best",
     controller: lawyerControllers.getBestLawyersController,
   },
+  {
+    method: "GET",
+    path: "/totalNumber",
+    controller: lawyerControllers.getTotalNumberOfLawyer,
+  },
   { method: "GET", path: "/:_id", controller: lawyerControllers.getLawyerById },
 ];
 

@@ -79,9 +79,30 @@ const getBestLawyersController = async (
   }
 };
 
+const getTotalNumberOfLawyer = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const totalLawyers = await lawyerServices.totalNumberOfLawyers();
+    res.status(200).json({
+      status: "success",
+      message: "Successfully get total number of lawyer",
+      data: totalLawyers,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      status: "error",
+      message: "Failed to retrieve total number of lawyer.",
+      error: error.message,
+    });
+  }
+};
+
 const lawyerControllers = {
   getAllLawyer,
   getBestLawyersController,
   getLawyerById,
+  getTotalNumberOfLawyer,
 };
 export default lawyerControllers;

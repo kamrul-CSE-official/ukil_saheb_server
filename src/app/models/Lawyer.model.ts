@@ -61,9 +61,6 @@ lawyerSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(givenPassword, savedPassword);
 };
 
-const ConnectWithUs = model<ILawyerDocument, ILawyerModel>(
-  "Lawyer",
-  lawyerSchema
-);
+const Lawyer = model<ILawyerDocument, ILawyerModel>("Lawyer", lawyerSchema);
 
-export default ConnectWithUs;
+export default Lawyer;
