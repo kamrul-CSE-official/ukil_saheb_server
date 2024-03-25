@@ -11,13 +11,13 @@ const router = express_1.default.Router();
 const routes = [
     {
         method: "POST",
-        path: "/register",
-        controller: auth_controllers_1.authControllers.registerGeneralController,
+        path: "/register/lawyer",
+        controller: auth_controllers_1.authControllers.registerLawyerController,
     },
     {
         method: "POST",
-        path: "/register/lawyer",
-        controller: auth_controllers_1.authControllers.registerLawyerController,
+        path: "/register/general",
+        controller: auth_controllers_1.authControllers.registerGeneralController,
     },
     {
         method: "POST",
@@ -25,7 +25,7 @@ const routes = [
         controller: auth_controllers_1.authControllers.loginController,
     },
     {
-        method: "POST",
+        method: "GET",
         path: "/logout",
         controller: auth_controllers_1.authControllers.logoutController,
     },
@@ -36,6 +36,8 @@ routes.forEach(({ method, path, controller }) => {
         case "POST":
             router.post(path, (0, asyncHandler_1.default)(controller));
             break;
+        case "GET":
+            router.get(path, (0, asyncHandler_1.default)(controller));
         default:
             console.error(`Unsupported HTTP method: ${method}`);
     }

@@ -6,7 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const lawyer_services_1 = __importDefault(require("../services/lawyer.services"));
 const getAllLawyer = async (req, res) => {
     try {
-        const lawyers = await lawyer_services_1.default.getAllLawyers();
+        const page = parseInt(req.query.page);
+        const limit = parseInt(req.query.limit);
+        const gender = req.query.gender;
+        const occupation = req.query.occupation;
+        const lawyers = await lawyer_services_1.default.getAllLawyers(page, limit, gender, occupation);
         res.status(200).json({
             status: "success",
             message: "Data retrieved successfully",
@@ -23,8 +27,8 @@ const getAllLawyer = async (req, res) => {
 };
 const getLawyerById = async (req, res) => {
     try {
-        const { id } = req.params;
-        const lawyer = await lawyer_services_1.default.getLawyerById(id);
+        const { _id } = req.params;
+        const lawyer = await lawyer_services_1.default.getLawyerById(_id);
         if (!lawyer) {
             res.status(404).json({
                 status: "fail",
@@ -65,9 +69,27 @@ const getBestLawyersController = async (req, res) => {
         });
     }
 };
+const getTotalNumberOfLawyer = async (req, res) => {
+    try {
+        const totalLawyers = await lawyer_services_1.default.totalNumberOfLawyers();
+        res.status(200).json({
+            status: "success",
+            message: "Successfully get total number of lawyer",
+            data: totalLawyers,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Failed to retrieve total number of lawyer.",
+            error: error.message,
+        });
+    }
+};
 const lawyerControllers = {
     getAllLawyer,
     getBestLawyersController,
     getLawyerById,
+    getTotalNumberOfLawyer,
 };
 exports.default = lawyerControllers;

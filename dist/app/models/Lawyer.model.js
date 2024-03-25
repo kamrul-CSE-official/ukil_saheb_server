@@ -36,5 +36,5 @@ lawyerSchema.statics.isUserExist = function (email) {
 lawyerSchema.statics.isPasswordMatched = async function (givenPassword, savedPassword) {
     return await bcryptjs_1.default.compare(givenPassword, savedPassword);
 };
-const ConnectWithUs = (0, mongoose_1.model)("Lawyer", lawyerSchema);
-exports.default = ConnectWithUs;
+const Lawyer = (0, mongoose_1.model)("Lawyer", lawyerSchema);
+exports.default = Lawyer;

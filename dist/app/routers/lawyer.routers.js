@@ -15,7 +15,12 @@ const routes = [
         path: "/best",
         controller: lawyer_controllers_1.default.getBestLawyersController,
     },
-    { method: "GET", path: "/:id", controller: lawyer_controllers_1.default.getLawyerById },
+    {
+        method: "GET",
+        path: "/totalNumber",
+        controller: lawyer_controllers_1.default.getTotalNumberOfLawyer,
+    },
+    { method: "GET", path: "/:_id", controller: lawyer_controllers_1.default.getLawyerById },
 ];
 // Map routes to controller functions
 routes.forEach(({ method, path, controller }) => {

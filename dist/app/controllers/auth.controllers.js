@@ -74,8 +74,7 @@ const loginController = async (req, res) => {
     try {
         const { email, password } = req.body;
         // Check if user exists in either User or Lawyer collection
-        const existUser = (await user_model_1.default.isUserExist(email)) ||
-            (await Lawyer_model_1.default.isUserExist(email));
+        const existUser = (await user_model_1.default.isUserExist(email)) || (await Lawyer_model_1.default.isUserExist(email));
         if (!existUser) {
             return res
                 .status(404)
