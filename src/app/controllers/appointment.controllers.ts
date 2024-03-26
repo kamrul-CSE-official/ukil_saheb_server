@@ -7,6 +7,7 @@ const takeAnAppointment = async (
 ): Promise<void> => {
   try {
     const appointment = await appointmentServices.createAppointment(req.body);
+    console.log(appointment);
     res.status(201).json({
       status: "success",
       message: "Appointment created successfully",

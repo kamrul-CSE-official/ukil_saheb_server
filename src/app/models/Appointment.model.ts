@@ -1,24 +1,26 @@
 import { Schema, model, Document, Types } from "mongoose";
 
 export interface IAppointment extends Document {
-  user: Types.ObjectId;
-  lawyer: Types.ObjectId;
-  date: Date;
-  time: Date;
+  userId: Types.ObjectId;
+  lawyerId: Types.ObjectId;
+  lawyerName: string;
+  date: string;
+  time: string;
   description?: string;
-  status: "Pending" | "Confirmed" | "Cancelled";
+  status?: "Pending" | "Confirmed" | "Cancelled";
   userImg: string;
   userName: string;
   comment?: string;
-  rating: number;
+  rating?: number;
 }
 
 const appointmentSchema = new Schema<IAppointment>(
   {
-    user: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    lawyer: { type: Schema.Types.ObjectId, ref: "Lawyer", required: true },
-    date: { type: Date, required: true },
-    time: { type: Date, required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    lawyerId: { type: Schema.Types.ObjectId, ref: "Lawyer", required: true },
+    lawyerName: { type: String, required: true },
+    date: { type: String, required: true },
+    time: { type: String, required: true },
     description: { type: String },
     status: {
       type: String,

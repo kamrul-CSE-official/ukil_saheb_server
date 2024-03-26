@@ -13,8 +13,17 @@ const getAllAppointments = async (): Promise<IAppointment[]> => {
 
 const getAppointmentById = async (
   appointmentId: string
-): Promise<IAppointment | null> => {
-  return await Appointment.findById(appointmentId);
+): Promise<IAppointment[] | null> => {
+  try {
+    const appointment = await Appointment.find({
+      userId: appointmentId,
+    }).exec();
+
+    return appointment || null;
+  } catch (error) {
+    console.error(`Error fetching appointment by ID ${appointmentId}:`, error);
+    throw new Error("Failed to fetch appointment");
+  }
 };
 
 const updateAppointment = async (

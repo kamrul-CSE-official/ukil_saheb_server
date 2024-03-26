@@ -6,7 +6,7 @@ import appointmentController from "../controllers/appointment.controllers";
 const router = express.Router();
 
 // Protect routes
-router.use(protectRoute);
+// router.use(protectRoute);
 
 // Appointment routes
 router
