@@ -11,7 +11,7 @@ async function startServer() {
       logger.info("Database connected✅");
 
       app.listen(port, () =>
-        logger.info(`Server is running at http://localhost:${port}/api/v1 🚀`)
+        logger.info(`Server is running at http://localhost:${port} 🚀`)
       );
     });
   } catch (error: any) {

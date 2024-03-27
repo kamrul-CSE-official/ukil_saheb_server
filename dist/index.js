@@ -12,7 +12,7 @@ async function startServer() {
     try {
         await mongoose_1.default.connect(envConfig_1.default.dbUrl).then(() => {
             logger_1.logger.info("Database connected✅");
-            app_1.default.listen(port, () => logger_1.logger.info(`Server is running at http://localhost:${port}/api/v1 🚀`));
+            app_1.default.listen(port, () => logger_1.logger.info(`Server is running at http://localhost:${port} 🚀`));
         });
     }
     catch (error) {
