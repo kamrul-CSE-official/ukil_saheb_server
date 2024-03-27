@@ -31,7 +31,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/api/v1", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Ukil Saheb ⚖️");
 });
 

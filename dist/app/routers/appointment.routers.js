@@ -5,11 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
-const protectRoute_1 = require("../middlewares/protectRoute");
 const appointment_controllers_1 = __importDefault(require("../controllers/appointment.controllers"));
 const router = express_1.default.Router();
 // Protect routes
-router.use(protectRoute_1.protectRoute);
+// router.use(protectRoute);
 // Appointment routes
 router
     .route("/")

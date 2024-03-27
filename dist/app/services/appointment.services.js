@@ -12,7 +12,16 @@ const getAllAppointments = async () => {
     return await Appointment_model_1.default.find();
 };
 const getAppointmentById = async (appointmentId) => {
-    return await Appointment_model_1.default.findById(appointmentId);
+    try {
+        const appointment = await Appointment_model_1.default.find({
+            userId: appointmentId,
+        }).exec();
+        return appointment || null;
+    }
+    catch (error) {
+        console.error(`Error fetching appointment by ID ${appointmentId}:`, error);
+        throw new Error("Failed to fetch appointment");
+    }
 };
 const updateAppointment = async (appointmentId, updateData) => {
     return await Appointment_model_1.default.findByIdAndUpdate(appointmentId, updateData, {

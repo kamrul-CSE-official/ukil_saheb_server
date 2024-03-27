@@ -7,6 +7,7 @@ const appointment_services_1 = __importDefault(require("../services/appointment.
 const takeAnAppointment = async (req, res) => {
     try {
         const appointment = await appointment_services_1.default.createAppointment(req.body);
+        console.log(appointment);
         res.status(201).json({
             status: "success",
             message: "Appointment created successfully",
