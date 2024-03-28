@@ -7,7 +7,6 @@ exports.authControllers = void 0;
 const user_model_1 = __importDefault(require("../models/user.model"));
 const jwtToken_1 = require("../../utils/jwtToken");
 const auth_services_1 = require("../services/auth.services");
-const logger_1 = require("../../shared/logger");
 const Lawyer_model_1 = __importDefault(require("../models/Lawyer.model"));
 const Admin_model_1 = __importDefault(require("../models/Admin.model"));
 const registerGeneralController = async (req, res) => {
@@ -28,13 +27,13 @@ const registerGeneralController = async (req, res) => {
                 .status(400)
                 .json({ status: "error", message: "User registration failed" });
         }
-        logger_1.logger.info(`${register.email} successfully registered.`);
+        console.log(`${register.email} successfully registered.`);
         return res
             .status(201)
             .json({ status: "success", message: "Successfully registered" });
     }
     catch (error) {
-        logger_1.logger.error("Error registering user:", error);
+        console.log("Error registering user:", error);
         return res
             .status(500)
             .json({ status: "error", message: "Something went wrong" });
@@ -58,13 +57,13 @@ const registerLawyerController = async (req, res) => {
                 .status(400)
                 .json({ status: "error", message: "User registration failed" });
         }
-        logger_1.logger.info(`${register.email} successfully registered.`);
+        console.log(`${register.email} successfully registered.`);
         return res
             .status(201)
             .json({ status: "success", message: "Successfully registered" });
     }
     catch (error) {
-        logger_1.logger.error("Error registering user:", error);
+        console.log("Error registering user:", error);
         return res
             .status(500)
             .json({ status: "error", message: "Something went wrong" });
@@ -87,7 +86,7 @@ const loginController = async (req, res) => {
                 .status(401)
                 .json({ status: "error", message: "Invalid password" });
         }
-        logger_1.logger.info(`${existUser.email} login successful`);
+        console.log(`${existUser.email} login successful`);
         // Check if the user is an Admin, and if so, set the role accordingly
         const isAdmin = await Admin_model_1.default.isAdmin(email);
         const power = isAdmin ? isAdmin.role : existUser.role;

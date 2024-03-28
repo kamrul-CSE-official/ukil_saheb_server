@@ -6,17 +6,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const envConfig_1 = __importDefault(require("./configs/envConfig"));
-const logger_1 = require("./shared/logger");
+// import { errorLogger, logger } from "./shared/logger";
 const port = envConfig_1.default.port;
 async function startServer() {
     try {
         await mongoose_1.default.connect(envConfig_1.default.dbUrl).then(() => {
-            logger_1.logger.info("Database connected✅");
-            app_1.default.listen(port, () => logger_1.logger.info(`Server is running at http://localhost:${port} 🚀`));
+            console.log("Database connected✅");
+            app_1.default.listen(port, () => console.log(`Server is running at http://localhost:${port} 🚀`));
         });
     }
     catch (error) {
-        logger_1.errorLogger.error("Database or Server error:", error?.message);
+        console.log("Database or Server error:", error?.message);
     }
 }
 startServer();

@@ -30,12 +30,12 @@ const registerGeneralController = async (req: Request, res: Response) => {
         .json({ status: "error", message: "User registration failed" });
     }
 
-    logger.info(`${register.email} successfully registered.`);
+    console.log(`${register.email} successfully registered.`);
     return res
       .status(201)
       .json({ status: "success", message: "Successfully registered" });
   } catch (error) {
-    logger.error("Error registering user:", error);
+    console.log("Error registering user:", error);
     return res
       .status(500)
       .json({ status: "error", message: "Something went wrong" });
@@ -65,12 +65,12 @@ const registerLawyerController = async (req: Request, res: Response) => {
         .json({ status: "error", message: "User registration failed" });
     }
 
-    logger.info(`${register.email} successfully registered.`);
+    console.log(`${register.email} successfully registered.`);
     return res
       .status(201)
       .json({ status: "success", message: "Successfully registered" });
   } catch (error) {
-    logger.error("Error registering user:", error);
+    console.log("Error registering user:", error);
     return res
       .status(500)
       .json({ status: "error", message: "Something went wrong" });
@@ -100,7 +100,7 @@ const loginController = async (req: Request, res: Response) => {
         .json({ status: "error", message: "Invalid password" });
     }
 
-    logger.info(`${existUser.email} login successful`);
+    console.log(`${existUser.email} login successful`);
 
     // Check if the user is an Admin, and if so, set the role accordingly
     const isAdmin = await Admin.isAdmin(email);
