@@ -20,4 +20,3 @@ async function startServer() {
     }
 }
 startServer();
-// 
