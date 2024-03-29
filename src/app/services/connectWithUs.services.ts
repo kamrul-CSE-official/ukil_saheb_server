@@ -12,7 +12,9 @@ const getAllContacts = async (): Promise<any> => {
 
 const getConnectById = async (id: string): Promise<any | null> => {
   try {
-    const connects = await ConnectWithUs.findById(id);
+    console.log(id);
+    const query = { $or: [{ receiverId: id }, { senderId: id }] };
+    const connects = await ConnectWithUs.find(query);
     return connects;
   } catch (error) {
     throw new Error("Failed to retrieve connect");

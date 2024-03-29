@@ -20,11 +20,12 @@ const getContactById = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
-    const contact = await ConnectWithUsServices.getConnectById(id);
+    const { _id } = req.params;
+    const contact = await ConnectWithUsServices.getConnectById(_id);
     if (!contact) {
       return res.status(404).json({ message: "Contact not found" });
     }
+    console.log(contact);
     res.status(200).json(contact);
   } catch (error) {
     next(error);
