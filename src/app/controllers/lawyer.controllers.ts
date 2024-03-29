@@ -79,6 +79,37 @@ const getBestLawyersController = async (
   }
 };
 
+const updateLawyerController = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const { _id } = req.params;
+    const data = req.body;
+    const updateLawyer = await lawyerServices.updateLawyer(_id, data);
+
+    if (!updateLawyer) {
+      res.status(404).json({
+        status: "fail",
+        message: "Lawyer not found",
+      });
+      return;
+    }
+
+    res.status(200).json({
+      status: "success",
+      message: "Lawyer retrieved successfully",
+      data: updateLawyer,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      status: "error",
+      message: "Failed to retrieve lawyer",
+      error: error.message,
+    });
+  }
+};
+
 const getTotalNumberOfLawyer = async (
   req: Request,
   res: Response
@@ -104,5 +135,6 @@ const lawyerControllers = {
   getBestLawyersController,
   getLawyerById,
   getTotalNumberOfLawyer,
+  updateLawyerController,
 };
 export default lawyerControllers;

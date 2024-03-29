@@ -4,7 +4,7 @@ import lawyerControllers from "../controllers/lawyer.controllers";
 
 const router = express.Router();
 
-// Define routes and corresponding controller functions
+
 const routes = [
   { method: "GET", path: "/", controller: lawyerControllers.getAllLawyer },
   {
@@ -18,13 +18,20 @@ const routes = [
     controller: lawyerControllers.getTotalNumberOfLawyer,
   },
   { method: "GET", path: "/:_id", controller: lawyerControllers.getLawyerById },
+  {
+    method: "PATCH",
+    path: "/:_id",
+    controller: lawyerControllers.updateLawyerController,
+  },
 ];
 
-// Map routes to controller functions
 routes.forEach(({ method, path, controller }) => {
   switch (method) {
     case "GET":
       router.get(path, asyncHandler(controller));
+      break;
+    case "PATCH":
+      router.patch(path, asyncHandler(controller));
       break;
     default:
       console.error(`Unsupported HTTP method: ${method}`);

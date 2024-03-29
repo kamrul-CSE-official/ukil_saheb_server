@@ -13,7 +13,7 @@ const routes = [
   },
   {
     method: "GET",
-    path: "/:id",
+    path: "/:_id",
     controller: generalUsersControllers.getGeneralUserById,
   },
 ];

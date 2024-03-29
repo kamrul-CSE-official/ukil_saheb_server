@@ -27,8 +27,8 @@ const getGeneralUserById = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { id } = req.params;
-    const generalPeople = await userServices.getGeneralUserById(id);
+    const { _id } = req.params;
+    const generalPeople = await userServices.getGeneralUserById(_id);
 
     if (!generalPeople) {
       res.status(404).json({

@@ -93,6 +93,15 @@ const getLawyerById = async (id: string): Promise<any | null> => {
   }
 };
 
+const updateLawyer = async (id: string, data: any): Promise<any | null> => {
+  try {
+    const lawyer = await Lawyer.findOneAndUpdate({ _id: id }, data);
+    return lawyer;
+  } catch (error) {
+    throw new Error("Failed to retrieve lawyer");
+  }
+};
+
 const totalNumberOfLawyers = async (): Promise<number | null> => {
   try {
     const count = await Lawyer.estimatedDocumentCount();
@@ -107,5 +116,6 @@ const lawyerServices = {
   getBestLawyers,
   getLawyerById,
   totalNumberOfLawyers,
+  updateLawyer,
 };
 export default lawyerServices;
