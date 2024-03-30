@@ -15,7 +15,7 @@ router
   .post(asyncHandler(appointmentController.takeAnAppointment));
 
 router
-  .route("/:id")
+  .route("/:_id")
   .get(asyncHandler(appointmentController.getAppointmentById))
   .put(asyncHandler(appointmentController.updateAppointment))
   .delete(asyncHandler(appointmentController.deleteAppointment));

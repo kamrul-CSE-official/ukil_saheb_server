@@ -15,9 +15,10 @@ const getAppointmentById = async (
   appointmentId: string
 ): Promise<IAppointment[] | null> => {
   try {
-    const appointment = await Appointment.find({
-      userId: appointmentId,
-    }).exec();
+    const query = {
+      $or: [{ userId: appointmentId }, { lawyerId: appointmentId }],
+    };
+    const appointment = await Appointment.find(query).exec();
 
     return appointment || null;
   } catch (error) {
@@ -30,9 +31,12 @@ const updateAppointment = async (
   appointmentId: string,
   updateData: any
 ): Promise<IAppointment | null> => {
-  return await Appointment.findByIdAndUpdate(appointmentId, updateData, {
+  console.log("Id: ", appointmentId, " UpdateD: ", updateData);
+  const query = await Appointment.findByIdAndUpdate(appointmentId, updateData, {
     new: true,
   });
+  console.log(query);
+  return query;
 };
 
 const deleteAppointment = async (

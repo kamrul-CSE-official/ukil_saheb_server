@@ -7,7 +7,6 @@ const takeAnAppointment = async (
 ): Promise<void> => {
   try {
     const appointment = await appointmentServices.createAppointment(req.body);
-    console.log(appointment);
     res.status(201).json({
       status: "success",
       message: "Appointment created successfully",
@@ -44,7 +43,7 @@ const getAppointmentById = async (
   res: Response
 ): Promise<void> => {
   try {
-    const appointmentId = req.params.id;
+    const appointmentId = req.params._id;
     const appointment = await appointmentServices.getAppointmentById(
       appointmentId
     );
@@ -73,7 +72,7 @@ const updateAppointment = async (
   res: Response
 ): Promise<void> => {
   try {
-    const appointmentId = req.params.id;
+    const appointmentId = req.params._id;
     const updatedAppointment = await appointmentServices.updateAppointment(
       appointmentId,
       req.body
@@ -103,7 +102,7 @@ const deleteAppointment = async (
   res: Response
 ): Promise<void> => {
   try {
-    const appointmentId = req.params.id;
+    const appointmentId = req.params._id;
     const deletedAppointment = await appointmentServices.deleteAppointment(
       appointmentId
     );

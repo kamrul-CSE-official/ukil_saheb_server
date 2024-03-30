@@ -12,7 +12,6 @@ const getAllContacts = async (): Promise<any> => {
 
 const getConnectById = async (id: string): Promise<any | null> => {
   try {
-    console.log(id);
     const query = { $or: [{ receiverId: id }, { senderId: id }] };
     const connects = await ConnectWithUs.find(query);
     return connects;
