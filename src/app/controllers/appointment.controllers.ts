@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import appointmentServices from "../services/appointment.services";
+import Appointment from "../models/Appointment.model";
 
 const takeAnAppointment = async (
   req: Request,
@@ -97,6 +98,35 @@ const updateAppointment = async (
   }
 };
 
+const getAppointmentRevew = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const lawyerId = req.params._id;
+    const page: number = parseInt(req.query.page as string);
+    const limit: number = parseInt(req.query.limit as string);
+    const revew = await appointmentServices.getRevew(lawyerId, page, limit);
+    if (!revew) {
+      res
+        .status(404)
+        .json({ status: "error", message: "Appointment not found" });
+      return;
+    }
+    res.status(200).json({
+      status: "success",
+      message: "Appointment revew get successfully",
+      data: revew,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      status: "error",
+      message: "Failed to get revew appointment",
+      error: error.message,
+    });
+  }
+};
+
 const deleteAppointment = async (
   req: Request,
   res: Response
@@ -126,11 +156,36 @@ const deleteAppointment = async (
   }
 };
 
+const getTotalNumberOfAppiontmentRevew = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  try {
+    const lawyerId = req.params._id;
+    const totalAppointment = await appointmentServices.totalNumberOfAppointment(
+      lawyerId
+    );
+    res.status(200).json({
+      status: "success",
+      message: "Successfully get total number of appointment",
+      data: totalAppointment,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      status: "error",
+      message: "Failed to retrieve total number of appointment.",
+      error: error.message,
+    });
+  }
+};
+
 const appointmentController = {
   takeAnAppointment,
   getAppointments,
   getAppointmentById,
   updateAppointment,
   deleteAppointment,
+  getAppointmentRevew,
+  getTotalNumberOfAppiontmentRevew,
 };
 export default appointmentController;

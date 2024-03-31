@@ -45,12 +45,28 @@ const deleteAppointment = async (
   return await Appointment.findByIdAndDelete(appointmentId);
 };
 
+const getRevew = async (lawyerId: string, page: number, limit: number) => {
+  const skip = (page - 1) * limit;
+  return await Appointment.find({ lawyerId: lawyerId }).skip(skip).limit(limit);
+};
+
+const totalNumberOfAppointment = async (id: string): Promise<number | null> => {
+  try {
+    const count = await Appointment.estimatedDocumentCount({ lawyerId: id });
+    return count;
+  } catch (error) {
+    throw new Error("Failed to find total number of appointments");
+  }
+};
+
 const appointmentServices = {
   createAppointment,
   getAllAppointments,
   getAppointmentById,
   updateAppointment,
   deleteAppointment,
+  getRevew,
+  totalNumberOfAppointment,
 };
 
 export default appointmentServices;
