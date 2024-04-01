@@ -25,7 +25,7 @@ const limiter = rateLimit({
 console.log("ENV: ", envConfig.nodeEnv);
 app.use(
   cors({
-    origin: "https://ukil-saheb.vercel.app",
+    origin: ["http://localhost:5173", "https://ukil-saheb.vercel.app"],
     credentials: true,
   })
 );
