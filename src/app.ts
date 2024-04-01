@@ -22,7 +22,6 @@ const limiter = rateLimit({
 });
 
 // Middleware setup
-console.log("ENV: ", envConfig.nodeEnv);
 app.use(
   cors({
     origin: ["https://ukil-saheb.vercel.app", "http://localhost:5173"],
@@ -36,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("Ukil Saheb ⚖️");
 });
+
 // Routers setup
 app.use("/api/v1/auth", limiter, authRouters);
 app.use("/api/v1/users", usersRouters);
