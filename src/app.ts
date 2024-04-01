@@ -9,6 +9,7 @@ import appointmentRouters from "./app/routers/appointment.routers";
 import lawyerRouters from "./app/routers/lawyer.routers";
 import connectWithUsRouters from "./app/routers/ConnectWithUs.routers";
 import usersRouters from "./app/routers/user.routers";
+import envConfig from "./configs/envConfig";
 
 const app = express();
 
@@ -23,7 +24,10 @@ const limiter = rateLimit({
 // Middleware setup
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin:
+      envConfig.nodeEnv === "development"
+        ? "http://localhost:5173"
+        : "https://ukil-saheb.vercel.app",
     credentials: true,
   })
 );
@@ -34,7 +38,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
   res.send("Ukil Saheb ⚖️");
 });
-
 // Routers setup
 app.use("/api/v1/auth", limiter, authRouters);
 app.use("/api/v1/users", usersRouters);

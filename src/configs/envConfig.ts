@@ -9,6 +9,7 @@ interface Ienv {
   accessTokenSecret: string | undefined;
   accessTokenExpiresIn: string | undefined;
   bcrypt: string | undefined;
+  nodeEnv: string | undefined;
 }
 
 const envConfig: Ienv = {
@@ -19,6 +20,7 @@ const envConfig: Ienv = {
   accessTokenSecret: process.env.access_token_secret,
   accessTokenExpiresIn: process.env.access_token_expireIn,
   bcrypt: process.env.BCRYPT_SALT_ROUNDS,
+  nodeEnv: process.env.NODE_ENV,
 };
 
 export default envConfig;
