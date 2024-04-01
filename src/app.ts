@@ -24,10 +24,11 @@ const limiter = rateLimit({
 // Middleware setup
 app.use(
   cors({
-    origin:
+    origin: [
       envConfig.nodeEnv === "development"
         ? "http://localhost:5173"
         : "https://ukil-saheb.vercel.app",
+    ],
     credentials: true,
   })
 );
