@@ -22,13 +22,13 @@ const limiter = rateLimit({
 });
 
 // Middleware setup
-app.use(
-  cors({
-    // origin: ["https://ukil-saheb.vercel.app", "http://localhost:5173"],
-    origin: ["https://ukil-saheb.vercel.app"],
-    // credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ["https://ukil-saheb.vercel.app", "http://localhost:5173"],
+//     credentials: true,
+//   })
+// );
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
