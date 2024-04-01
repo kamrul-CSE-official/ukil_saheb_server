@@ -22,6 +22,7 @@ const limiter = rateLimit({
 });
 
 // Middleware setup
+console.log("ENV: ", envConfig.nodeEnv);
 app.use(
   cors({
     origin: [
