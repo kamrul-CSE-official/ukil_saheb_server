@@ -1,8 +1,8 @@
-import { Schema, model, Document, Types } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
 export interface IAppointment extends Document {
-  userId: Types.ObjectId;
-  lawyerId: Types.ObjectId;
+  userId: string;
+  lawyerId: string;
   lawyerName: string;
   date: string;
   time: string;
@@ -16,8 +16,8 @@ export interface IAppointment extends Document {
 
 const appointmentSchema = new Schema<IAppointment>(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
-    lawyerId: { type: Schema.Types.ObjectId, ref: "Lawyer", required: true },
+    userId: { type: String, required: true },
+    lawyerId: { type: String, required: true },
     lawyerName: { type: String, required: true },
     date: { type: String, required: true },
     time: { type: String, required: true },

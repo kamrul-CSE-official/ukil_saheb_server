@@ -22,13 +22,14 @@ const limiter = rateLimit({
 });
 
 // Middleware setup
-// app.use(
-//   cors({
-//     origin: ["https://ukil-saheb.vercel.app", "http://localhost:5173"],
-//     credentials: true,
-//   })
-// );
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://ukil-saheb.vercel.app", "http://localhost:5173"],
+    credentials: true,
+  })
+);
+// https://web.programming-hero.com/update-1/video/update-1-61-3-handle-cors-issue-and-get-jwt-token-on-client-side
+// app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));

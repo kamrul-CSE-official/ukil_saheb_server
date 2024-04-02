@@ -46,8 +46,19 @@ const deleteAppointment = async (
 };
 
 const getRevew = async (lawyerId: string, page: number, limit: number) => {
-  const skip = (page - 1) * limit;
-  return await Appointment.find({ lawyerId: lawyerId }).skip(skip).limit(limit);
+  try {
+    const skip = (page - 1) * limit;
+    const query = await Appointment.find({ lawyerId })
+      .select("rating comment userName userImg date time")
+      .skip(skip)
+      .limit(limit)
+      .exec();
+
+    return query;
+  } catch (error) {
+    console.error("Error fetching reviews:", error);
+    throw new Error("Review not found");
+  }
 };
 
 const totalNumberOfAppointment = async (id: string): Promise<number | null> => {
