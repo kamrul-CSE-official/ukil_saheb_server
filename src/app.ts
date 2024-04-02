@@ -9,7 +9,6 @@ import appointmentRouters from "./app/routers/appointment.routers";
 import lawyerRouters from "./app/routers/lawyer.routers";
 import connectWithUsRouters from "./app/routers/ConnectWithUs.routers";
 import usersRouters from "./app/routers/user.routers";
-import envConfig from "./configs/envConfig";
 
 const app = express();
 
@@ -24,8 +23,7 @@ const limiter = rateLimit({
 // Middleware setup
 app.use(
   cors({
-    // origin: ["https://ukil-saheb.vercel.app/", "http://localhost:5173"],
-    origin: ["https://ukil-saheb.vercel.app/"],
+    origin: ["https://ukil-saheb.vercel.app", "http://localhost:5173"],
     credentials: true,
   })
 );
