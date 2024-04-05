@@ -15,11 +15,12 @@ const getAllContacts = async (req, res, next) => {
 };
 const getContactById = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const contact = await connectWithUs_services_1.default.getConnectById(id);
+        const { _id } = req.params;
+        const contact = await connectWithUs_services_1.default.getConnectById(_id);
         if (!contact) {
             return res.status(404).json({ message: "Contact not found" });
         }
+        console.log(contact);
         res.status(200).json(contact);
     }
     catch (error) {

@@ -16,7 +16,7 @@ const routes = [
     },
     {
         method: "GET",
-        path: "/:id",
+        path: "/:_id",
         controller: user_controllers_1.default.getGeneralUserById,
     },
 ];

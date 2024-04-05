@@ -79,6 +79,15 @@ const getLawyerById = async (id) => {
         throw new Error("Failed to retrieve lawyer");
     }
 };
+const updateLawyer = async (id, data) => {
+    try {
+        const lawyer = await Lawyer_model_1.default.findOneAndUpdate({ _id: id }, data);
+        return lawyer;
+    }
+    catch (error) {
+        throw new Error("Failed to retrieve lawyer");
+    }
+};
 const totalNumberOfLawyers = async () => {
     try {
         const count = await Lawyer_model_1.default.estimatedDocumentCount();
@@ -93,5 +102,6 @@ const lawyerServices = {
     getBestLawyers,
     getLawyerById,
     totalNumberOfLawyers,
+    updateLawyer,
 };
 exports.default = lawyerServices;

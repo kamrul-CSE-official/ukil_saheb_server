@@ -51,8 +51,8 @@ const verifyAccessToken = (req, res, next) => {
             if (err.name === "TokenExpiredError") {
                 const expiredDecoded = jsonwebtoken_1.default.decode(accessToken);
                 if (!expiredDecoded) {
-                    return res.status(401).json({
-                        message: "Invalid access token",
+                    return res.status(403).json({
+                        message: "Access token expired!",
                         status: "fail",
                     });
                 }

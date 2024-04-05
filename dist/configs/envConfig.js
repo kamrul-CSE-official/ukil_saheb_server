@@ -13,5 +13,6 @@ const envConfig = {
     accessTokenSecret: process.env.access_token_secret,
     accessTokenExpiresIn: process.env.access_token_expireIn,
     bcrypt: process.env.BCRYPT_SALT_ROUNDS,
+    nodeEnv: process.env.NODE_ENV,
 };
 exports.default = envConfig;

@@ -7,7 +7,6 @@ const express_1 = __importDefault(require("express"));
 const asyncHandler_1 = __importDefault(require("../middlewares/asyncHandler"));
 const lawyer_controllers_1 = __importDefault(require("../controllers/lawyer.controllers"));
 const router = express_1.default.Router();
-// Define routes and corresponding controller functions
 const routes = [
     { method: "GET", path: "/", controller: lawyer_controllers_1.default.getAllLawyer },
     {
@@ -21,12 +20,19 @@ const routes = [
         controller: lawyer_controllers_1.default.getTotalNumberOfLawyer,
     },
     { method: "GET", path: "/:_id", controller: lawyer_controllers_1.default.getLawyerById },
+    {
+        method: "PATCH",
+        path: "/:_id",
+        controller: lawyer_controllers_1.default.updateLawyerController,
+    },
 ];
-// Map routes to controller functions
 routes.forEach(({ method, path, controller }) => {
     switch (method) {
         case "GET":
             router.get(path, (0, asyncHandler_1.default)(controller));
+            break;
+        case "PATCH":
+            router.patch(path, (0, asyncHandler_1.default)(controller));
             break;
         default:
             console.error(`Unsupported HTTP method: ${method}`);

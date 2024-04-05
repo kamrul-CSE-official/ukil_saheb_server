@@ -23,8 +23,8 @@ const getAllGeneralUsers = async (req, res) => {
 };
 const getGeneralUserById = async (req, res) => {
     try {
-        const { id } = req.params;
-        const generalPeople = await user_services_1.default.getGeneralUserById(id);
+        const { _id } = req.params;
+        const generalPeople = await user_services_1.default.getGeneralUserById(_id);
         if (!generalPeople) {
             res.status(404).json({
                 status: "fail",

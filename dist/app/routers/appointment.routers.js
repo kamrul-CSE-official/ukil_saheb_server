@@ -15,8 +15,14 @@ router
     .get((0, asyncHandler_1.default)(appointment_controllers_1.default.getAppointments))
     .post((0, asyncHandler_1.default)(appointment_controllers_1.default.takeAnAppointment));
 router
-    .route("/:id")
+    .route("/:_id")
     .get((0, asyncHandler_1.default)(appointment_controllers_1.default.getAppointmentById))
     .put((0, asyncHandler_1.default)(appointment_controllers_1.default.updateAppointment))
     .delete((0, asyncHandler_1.default)(appointment_controllers_1.default.deleteAppointment));
+router
+    .route("/revew/:_id")
+    .get((0, asyncHandler_1.default)(appointment_controllers_1.default.getAppointmentRevew));
+router
+    .route("/totalNumber/:_id")
+    .get((0, asyncHandler_1.default)(appointment_controllers_1.default.getTotalNumberOfAppiontmentRevew));
 exports.default = router;

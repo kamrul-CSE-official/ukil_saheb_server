@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const appointmentSchema = new mongoose_1.Schema({
-    userId: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
-    lawyerId: { type: mongoose_1.Schema.Types.ObjectId, ref: "Lawyer", required: true },
+    userId: { type: String, required: true },
+    lawyerId: { type: String, required: true },
     lawyerName: { type: String, required: true },
     date: { type: String, required: true },
     time: { type: String, required: true },

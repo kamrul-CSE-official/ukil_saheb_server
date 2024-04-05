@@ -16,7 +16,7 @@ const routes = [
     },
     {
         method: "GET",
-        path: "/:id",
+        path: "/:_id",
         controller: connectWithUs_controllers_1.default.getContactById,
     },
     {
@@ -26,12 +26,12 @@ const routes = [
     },
     {
         method: "DELETE",
-        path: "/:id",
+        path: "/:_id",
         controller: connectWithUs_controllers_1.default.deleteContactById,
     },
     {
         method: "PATCH",
-        path: "/:id",
+        path: "/:_id",
         controller: connectWithUs_controllers_1.default.updateContactById,
     },
 ];

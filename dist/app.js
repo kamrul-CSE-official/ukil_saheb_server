@@ -22,7 +22,8 @@ const limiter = (0, express_rate_limit_1.rateLimit)({
 });
 // Middleware setup
 app.use((0, cors_1.default)({
-    origin: "http://localhost:5173",
+    // origin: ["https://ukil-saheb.vercel.app", "http://localhost:5173"],
+    origin: "https://ukil-saheb.vercel.app",
     credentials: true,
 }));
 app.use(express_1.default.json());
@@ -32,7 +33,8 @@ app.get("/", (req, res) => {
     res.send("Ukil Saheb ⚖️");
 });
 // Routers setup
-app.use("/api/v1/auth", limiter, auth_routers_1.default);
+// app.use("/api/v1/auth", limiter, authRouters);
+app.use("/api/v1/auth", auth_routers_1.default);
 app.use("/api/v1/users", user_routers_1.default);
 app.use("/api/v1/lawyers", lawyer_routers_1.default);
 app.use("/api/v1/connect", ConnectWithUs_routers_1.default);

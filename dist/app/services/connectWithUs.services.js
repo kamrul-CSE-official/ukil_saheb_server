@@ -15,7 +15,8 @@ const getAllContacts = async () => {
 };
 const getConnectById = async (id) => {
     try {
-        const connects = await connectWith_model_1.default.findById(id);
+        const query = { $or: [{ receiverId: id }, { senderId: id }] };
+        const connects = await connectWith_model_1.default.find(query);
         return connects;
     }
     catch (error) {
