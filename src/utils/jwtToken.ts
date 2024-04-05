@@ -65,8 +65,8 @@ const verifyAccessToken = (req: Request, res: Response, next: NextFunction) => {
           if (err.name === "TokenExpiredError") {
             const expiredDecoded: any = jwt.decode(accessToken);
             if (!expiredDecoded) {
-              return res.status(401).json({
-                message: "Invalid access token",
+              return res.status(403).json({
+                message: "Access token expired!",
                 status: "fail",
               });
             }
