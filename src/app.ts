@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 
 // Routers setup
 // app.use("/api/v1/auth", limiter, authRouters);
-app.use("/api/v1/auth", limiter, authRouters);
+app.use("/api/v1/auth", authRouters);
 app.use("/api/v1/users", usersRouters);
 app.use("/api/v1/lawyers", lawyerRouters);
 app.use("/api/v1/connect", connectWithUsRouters);
